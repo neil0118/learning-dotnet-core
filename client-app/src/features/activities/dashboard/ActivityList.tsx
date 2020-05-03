@@ -1,26 +1,23 @@
-import React, { SyntheticEvent } from "react";
+import React, { useContext } from "react";
 import { Item, Segment, Button, Label } from "semantic-ui-react";
-import { IActivity } from "../../../app/models/activity";
+import { observer } from "mobx-react-lite";
 
-interface Iprops {
-  activities: IActivity[];
-  selectActivity: (id: string) => void;
-  deleteActivity: (e: SyntheticEvent<HTMLButtonElement>, id: string) => void;
-  submitting: boolean;
-  target: string;
-}
+import ActivityStore from "../../../app/stores/activityStore";
+interface Iprops {}
 
-const ActivityList: React.FC<Iprops> = ({
-  activities,
-  selectActivity,
-  deleteActivity,
-  submitting,
-  target
-}) => {
+const ActivityList: React.FC<Iprops> = () => {
+  const activityStore = useContext(ActivityStore);
+  const {
+    activitiesByDate,
+    selectActivity,
+    deleteActivity,
+    submitting,
+    target,
+  } = activityStore;
   return (
     <Segment clearing>
       <Item.Group divided>
-        {activities.map((activity) => {
+        {activitiesByDate.map((activity) => {
           return (
             <Item key={activity.id}>
               <Item.Content>
@@ -58,4 +55,4 @@ const ActivityList: React.FC<Iprops> = ({
   );
 };
 
-export default ActivityList;
+export default observer(ActivityList);
