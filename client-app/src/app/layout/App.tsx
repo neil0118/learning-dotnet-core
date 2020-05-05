@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import { Container } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import NavBar from "../../features/nav/NavBar";
@@ -9,8 +9,6 @@ import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
-
-
   return (
     <Fragment>
       <Route exact path="/" component={HomePage} />
