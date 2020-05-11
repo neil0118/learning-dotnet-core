@@ -2,20 +2,21 @@ import React, { useContext, Fragment } from "react";
 import { Item, Segment, Label } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 
-import ActivityStore from "../../../app/stores/activityStore";
 import ActivityListItem from "./ActivityListItem";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { format } from "date-fns";
 
 interface Iprops {}
 
 const ActivityList: React.FC<Iprops> = () => {
-  const activityStore = useContext(ActivityStore);
-  const { activitiesByDate } = activityStore;
+  const rootStore = useContext(RootStoreContext);
+  const { activitiesByDate } = rootStore.activityStore;
   return (
     <Fragment>
       {activitiesByDate.map(([group, activities]) => (
         <Fragment key={group}>
           <Label key={group} size="large" color="blue">
-            {group}
+            {format(group, "eeee do MMMM")}
           </Label>
           <Segment clearing>
             <Item.Group divided>
