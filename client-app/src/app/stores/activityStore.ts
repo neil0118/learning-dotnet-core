@@ -42,7 +42,9 @@ export default class ActivityStore {
         console.log(this.hubConnection?.state);
       })
       .then(() => {
-        this.hubConnection!.invoke("AddToGroup", activityId);
+        if (this.hubConnection!.state === "Connected") {
+          this.hubConnection!.invoke("AddToGroup", activityId);
+        }
       })
       .catch((error) => console.log("Error establishing connection: ", error));
     this.hubConnection.on("ReceiveComment", (comment) => {
